@@ -2,8 +2,16 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
+  // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
 
+  server: {
+    port: 5500, 
+    host: '0.0.0.0',
+  },
+
+  // Target: https://go.nuxtjs.dev/config-target
+  target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     titleTemplate: '%s - travisor-website',
@@ -28,6 +36,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    '~/plugins/pinia.js',
+    '~/plugins/axios.js',
+    '~/plugins/sweetalert2.js',
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -36,12 +47,19 @@ export default {
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
-    '@nuxtjs/vuetify',
+    '@nuxtjs/vuetify',,
+    '@nuxtjs/composition-api/module',
+    '@pinia/nuxt',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
   ],
+
+  axios: {
+    baseURL: 'https://api.example.com', // Replace with your API base URL
+  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -59,9 +77,9 @@ export default {
           success: colors.green.accent3
         },
         light: {
-          primary: "#2033c4",
+          primary: "#1BBC9B",
+          secondary: '#F4931E',
           accent: '#EFF1F3',
-          secondary: '#0F185E',
           info: "#4D4D4D",
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
