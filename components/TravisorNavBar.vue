@@ -85,13 +85,13 @@ export default {
           label: "Destinations",
           dropdown: true,
           destinations: [
-            { label: "Europe", queryRegion: "europe" },
-            { label: "Asia", queryRegion: "asia" },
-            { label: "Africa", queryRegion: "africa" },
-            { label: "Americas", queryRegion: "americas" },
-            { label: "Australia", queryRegion: "australia" },
-            { label: "Antarctica", queryRegion: "antarctica" },
-            { label: "Oceania", queryRegion: "oceania" },
+            { label: "Europe", queryRegion: "Europe" },
+            { label: "Asia", queryRegion: "Asia" },
+            { label: "Africa", queryRegion: "Africa" },
+            { label: "Americas", queryRegion: "Americas" },
+            { label: "Australia", queryRegion: "Australia" },
+            { label: "Antarctica", queryRegion: "Antarctica" },
+            { label: "Oceania", queryRegion: "Oceania" },
           ],
         },
         { label: "About", path: "/about", name: "about" },
@@ -146,8 +146,7 @@ export default {
 }
 
 .active-button {
-  background-color: #1bbc9b !important;
-  color: white !important;
+  color: #1bbc9b !important;
 }
 
 body.drawer-open {

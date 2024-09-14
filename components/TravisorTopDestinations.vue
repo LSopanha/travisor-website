@@ -1,6 +1,6 @@
 <template>
   <section class="py-5 accent">
-    <h2 class="primary--text text-center mb-5">Top Destinations</h2>
+    <h1 class="primary--text text-center mb-5">Top Destinations</h1>
     <v-row class="justify-center">
       <div
         v-for="(destination, index) in topDestinations"
@@ -12,7 +12,16 @@
           aspect-ratio="1"
           class="rounded-xl"
           style="width: 275px"
-        ></v-img>
+        >
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="primary lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
         <p class="font-weight-bold mt-2">{{ destination.title }}</p>
       </div>
     </v-row>

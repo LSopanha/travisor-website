@@ -1,6 +1,6 @@
 <template>
   <section class="travel_guides">
-    <h2 class="primary--text text-center">Travel Guides</h2>
+    <h1 class="primary--text text-center">Travel Guides</h1>
     <p class="text-center mb-2" style="font-size: 20px !important">
       Popular travel blog posts & guides
     </p>
@@ -17,7 +17,16 @@
           aspect-ratio="1"
           class="rounded-xl"
           style="width: 80%"
-        ></v-img>
+        >
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="primary lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
         <p class="font-weight-bold mt-2">{{ guide.title }}</p>
       </v-col>
     </div>

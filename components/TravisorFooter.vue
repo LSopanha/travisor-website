@@ -14,7 +14,9 @@
           </div>
         </div>
         <div class="footerbottom">
-          <p class="pa-0">Copyright &copy; Travisor.com All Rights Reserved.</p>
+          <p class="pa-0 ma-0">
+            Copyright &copy; Travisor.com All Rights Reserved.
+          </p>
         </div>
       </div>
     </section>
@@ -28,7 +30,6 @@
 .footerContainer {
   width: 100%;
   height: 100%;
-  /* padding: 10px 30px 10px !important; */
 }
 
 .socialIcon {
