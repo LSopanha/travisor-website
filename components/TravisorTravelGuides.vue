@@ -1,7 +1,7 @@
 <template>
   <section class="travel_guides">
     <h1 class="primary--text text-center">Travel Guides</h1>
-    <p class="text-center mb-2" style="font-size: 20px !important">
+    <p class="text-center mb-5" style="font-size: 20px !important">
       Popular travel blog posts & guides
     </p>
     <div class="d-flex align-center justify-center">
