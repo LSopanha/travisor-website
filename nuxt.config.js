@@ -53,13 +53,16 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    '@nuxtjs/axios',
-  ],
+  modules: ['@nuxtjs/axios', '@pinia/nuxt'],
 
   axios: {
-    baseURL: 'https://api.example.com', // Replace with your API base URL
+    baseURL: 'http://localhost:8000/api/client/auth/v1/', 
   },
+
+  env: {
+    publicApi: process.env.PUBLIC_API ,
+  },
+
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {

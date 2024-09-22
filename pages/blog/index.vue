@@ -8,7 +8,7 @@
       :image="slides[0].image"
     ></travisor-banner>
 
-    <!-- Selcted Options -->
+    <!-- Selected Options -->
     <div class="d-flex flex-column align-center justify-center mt-5">
       <h2 class="black--text font-weight-regular">
         See all posts from users around the world!
@@ -42,11 +42,13 @@
       <v-col class="pa-0 mb-5" v-for="(blog, index) in blogs" :key="index">
         <travisor-blog-card
           :blog="blog"
+          :global_id="blog.global_id"
           :image="blog.image"
-          :profile_picture="blog.profile_picture"
-          :userName="blog.user_name"
+          :profile_picture="blog.user.profile_picture"
+          :firstName="blog.user.first_name"
+          :lastName="blog.user.last_name"
           :title="blog.title"
-          :postedDate="blog.posted_date"
+          :postedDate="blog.created_at"
           :totalLikes="blog.total_likes"
         ></travisor-blog-card>
       </v-col>
@@ -58,6 +60,8 @@
 </template>
 
 <script>
+import { useBlogStore } from "~/store/blog"; // Adjust path if needed
+
 export default {
   data() {
     return {
@@ -69,49 +73,17 @@ export default {
           description: "Share your travel experience with us!",
         },
       ],
-      blogs: [
-        {
-          image: "/images/blog.png",
-          profile_picture: "/images/default-profile-picture.PNG",
-          user_name: "Leavchum Sopanha",
-          title: "BLOG POST 1",
-          posted_date: "July 26, 2024",
-          total_likes: 10,
-        },
-        {
-          image: "/images/blog.png",
-          profile_picture: "/images/default-profile-picture.PNG",
-          user_name: "Leavchum Sopanha",
-          title: "BLOG POST 2",
-          posted_date: "July 26, 2024",
-          total_likes: 10,
-        },
-        {
-          image: "/images/blog.png",
-          profile_picture: "/images/default-profile-picture.PNG",
-          user_name: "Leavchum Sopanha",
-          title: "BLOG POST 3",
-          posted_date: "July 26, 2024",
-          total_likes: 10,
-        },
-        {
-          image: "/images/blog.png",
-          profile_picture: "/images/default-profile-picture.PNG",
-          user_name: "Leavchum Sopanha",
-          title: "BLOG POST 4",
-          posted_date: "July 26, 2024",
-          total_likes: 10,
-        },
-        {
-          image: "/images/blog.png",
-          profile_picture: "/images/default-profile-picture.PNG",
-          user_name: "Leavchum Sopanha",
-          title: "BLOG POST 5",
-          posted_date: "July 26, 2024",
-          total_likes: 10,
-        },
-      ],
     };
+  },
+  computed: {
+    blogs() {
+      const blogStore = useBlogStore();
+      return blogStore.blogs; // Access the blogs from the Pinia store
+    },
+  },
+  mounted() {
+    const blogStore = useBlogStore();
+    blogStore.fetchBlogs(); // Fetch blogs when the component is mounted
   },
 };
 </script>
