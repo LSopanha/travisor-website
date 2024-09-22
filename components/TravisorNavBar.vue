@@ -63,45 +63,99 @@
     </v-col>
 
     <v-col cols="2" class="d-flex justify-end pa-0" v-if="isLoggedIn">
-      <v-btn to="/user-profile" icon @click="handleUserProfileClick"></v-btn>
+      <v-btn to="/user-profile" icon @click="handleUserProfileClick">
+        <v-img
+          :src="
+            userProfilePicture
+              ? userProfilePicture
+              : '/images/default-profile-picture.PNG'
+          "
+          class="rounded-circle"
+          style="aspect-ratio: 1; border: 2px solid blue"
+          :max-width="45"
+          cover
+        >
+          <template v-slot:placeholder>
+            <v-row class="fill-height ma-0" align="center" justify="center">
+              <v-progress-circular
+                indeterminate
+                color="primary lighten-5"
+              ></v-progress-circular>
+            </v-row>
+          </template>
+        </v-img>
+      </v-btn>
     </v-col>
 
     <v-col cols="2" class="d-flex flex-row justify-end pa-0" v-else>
-      <v-btn class="mx-1" outlined>LOG IN</v-btn>
-      <v-btn class="primary white--text mx-1" text>SIGN UP</v-btn>
+      <v-btn
+        class="mx-1"
+        outlined
+        :to="{
+          path: '/login',
+        }"
+        >LOG IN</v-btn
+      >
+      <v-btn
+        class="primary white--text mx-1"
+        text
+        :to="{
+          path: '/register',
+        }"
+        >REGISTER</v-btn
+      >
     </v-col>
   </v-row>
 </template>
 
 <script>
+import { useAuthStore } from "~/store/auth";
+
 export default {
   data() {
     return {
-      isLoggedIn: false,
       menuItems: [
         { label: "Home", path: "/", name: "home" },
         { label: "Blog", path: "/blog", name: "blog" },
         {
           label: "Destinations",
-          dropdown: true,
-          destinations: [
-            { label: "Europe", queryRegion: "Europe" },
-            { label: "Asia", queryRegion: "Asia" },
-            { label: "Africa", queryRegion: "Africa" },
-            { label: "Americas", queryRegion: "Americas" },
-            { label: "Australia", queryRegion: "Australia" },
-            { label: "Antarctica", queryRegion: "Antarctica" },
-            { label: "Oceania", queryRegion: "Oceania" },
-          ],
+          path: "/destinations",
+          name: "destinations",
+          // dropdown: true,
+          // destinations: [
+          //   { label: "Europe", queryRegion: "Europe" },
+          //   { label: "Asia", queryRegion: "Asia" },
+          //   { label: "Africa", queryRegion: "Africa" },
+          //   { label: "Americas", queryRegion: "Americas" },
+          //   { label: "Australia", queryRegion: "Australia" },
+          //   { label: "Antarctica", queryRegion: "Antarctica" },
+          //   { label: "Oceania", queryRegion: "Oceania" },
+          // ],
         },
         { label: "About", path: "/about", name: "about" },
         { label: "Contact Us", path: "/contact", name: "contact" },
       ],
+      userProfilePicture: "",
     };
   },
+  computed: {
+    isLoggedIn() {
+      const authStore = useAuthStore();
+      return authStore.isAuthenticated;
+    },
+  },
+  mounted() {
+    if (this.isLoggedIn) {
+      this.fetchUserProfile();
+    }
+  },
+
   methods: {
     handleUserProfileClick() {
-      this.isUserProfileRoute = true;
+      // this.isUserProfileRoute = true;
+    },
+    handleRegisterClick() {
+      // this.isUserProfileRoute = true;
     },
     isActive(item) {
       return (
@@ -112,10 +166,11 @@ export default {
           ))
       );
     },
-    isDestinationsActive() {
-      return this.menuItems[2].destinations.some(
-        (dest) => this.$route.query.region === dest.queryRegion
-      );
+    fetchUserProfile() {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user) {
+        this.userProfilePicture = user.profile_picture;
+      }
     },
   },
 };

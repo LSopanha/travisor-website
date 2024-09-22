@@ -40,7 +40,9 @@
               </v-row>
             </template>
           </v-img>
-          <p class="text-subtitle-1 pa-0 ma-0 pl-2">Leavchum Sopanha</p>
+          <p class="text-subtitle-1 pa-0 ma-0 pl-2">
+            {{ firstName }} {{ lastName }}
+          </p>
         </div>
 
         <!-- Truncated Title with Ellipsis -->
@@ -52,7 +54,8 @@
 
         <!-- Date and Time -->
         <p class="text-subtitle-2 grey--text ma-0">
-          {{ postedDate }} - <span>{{ totalLikes }} likes</span>
+          {{ formatPostedDate(postedDate) }} -
+          <span>{{ totalLikes }} likes</span>
         </p>
 
         <!-- Read Button -->
@@ -76,7 +79,7 @@ export default {
   props: {
     global_id: {
       type: String,
-      default: "1234",
+      default: "",
     },
     blog: {
       type: Array,
@@ -90,7 +93,11 @@ export default {
       type: String,
       default: "",
     },
-    userName: {
+    firstName: {
+      type: String,
+      default: "",
+    },
+    lastName: {
       type: String,
       default: "",
     },
@@ -100,7 +107,7 @@ export default {
     },
     totalLikes: {
       type: Number,
-      default: "",
+      default: 0,
     },
     postedDate: {
       type: String,
@@ -120,6 +127,11 @@ export default {
         path: "blog/blog-details",
         query: { blogId: global_id },
       });
+    },
+    formatPostedDate(dateString) {
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      const date = new Date(dateString);
+      return date.toLocaleDateString(undefined, options);
     },
   },
 };
